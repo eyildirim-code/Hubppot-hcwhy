@@ -1,0 +1,18 @@
+services:
+  - type: web
+    name: hubspot-contact-tagger
+    env: node
+    plan: free
+    buildCommand: npm install
+    startCommand: npm start
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: HUBSPOT_ACCESS_TOKEN
+        sync: false
+      - key: OPENAI_API_KEY
+        sync: false
+      - key: PORT
+        value: 10000
+      - key: CRON_SCHEDULE
+        value: "0 0 * * *"
