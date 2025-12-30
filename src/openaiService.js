@@ -105,7 +105,9 @@ Return ONLY a valid JSON array of strings, for example: ["tag1", "tag2", "tag3"]
         .filter(tag => tag.length > 0);
     } catch (error) {
       console.error('Error parsing tags from response:', error.message);
-      return ['needs-review']; // Default tag if parsing fails
+      // Return general-purpose tag if parsing fails
+      // Note: Ensure this tag exists in your HubSpot account
+      return ['ai-review-needed'];
     }
   }
 }

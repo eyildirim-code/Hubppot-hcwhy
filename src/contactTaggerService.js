@@ -30,8 +30,10 @@ class ContactTaggerService {
       // Step 2: Process each contact
       let successCount = 0;
       let failedCount = 0;
+      const RATE_LIMIT_DELAY = 500; // 500ms between requests (configurable)
 
-      for (const contact of contacts) {
+      for (let i = 0; i < contacts.length; i++) {
+        const contact = contacts[i];
         try {
           // Extract relevant data
           const contactData = this.hubspotService.extractContactData(contact);
@@ -44,11 +46,20 @@ class ContactTaggerService {
 
           successCount++;
           
-          // Add a small delay to avoid rate limiting
-          await this.sleep(1000);
+          // Add delay between requests to avoid rate limiting
+          // Only delay if not the last contact
+          if (i < contacts.length - 1) {
+            await this.sleep(RATE_LIMIT_DELAY);
+          }
         } catch (error) {
           console.error(`Failed to process contact ${contact.id}:`, error.message);
           failedCount++;
+          
+          // If it's a rate limit error, wait longer before continuing
+          if (error.message && error.message.toLowerCase().includes('rate limit')) {
+            console.warn('Rate limit detected, waiting 5 seconds before continuing...');
+            await this.sleep(5000);
+          }
         }
       }
 

@@ -103,10 +103,12 @@ class HubSpotService {
     try {
       console.log(`Updating contact ${contactId} with tags: ${tags.join(', ')}`);
 
-      // In HubSpot, we typically use a custom property for tags
-      // or associations with company/deal objects
-      // Here we'll use a custom multi-checkbox property 'tags'
-      // You may need to create this property in HubSpot first
+      // In HubSpot, we use a custom property for tags
+      // You need to create this property in HubSpot first:
+      // Settings → Properties → Contact Properties → Create property
+      // - Name: Tags
+      // - Field type: Single-line text
+      // - Internal name: tags
       
       const properties = {
         tags: tags.join(';') // Store as semicolon-separated string
@@ -118,8 +120,15 @@ class HubSpotService {
 
       console.log(`Successfully updated tags for contact ${contactId}`);
     } catch (error) {
-      console.error(`Error updating tags for contact ${contactId}:`, error.message);
-      throw error;
+      // Handle the case where the tags property doesn't exist
+      if (error.message && error.message.includes('Property values were not valid')) {
+        console.error(`Error: The 'tags' property may not exist in HubSpot. Please create it first.`);
+        console.error(`See README.md for instructions on creating the tags property.`);
+      } else {
+        console.error(`Error updating tags for contact ${contactId}:`, error.message);
+      }
+      // Don't throw - log the error and continue with other contacts
+      console.warn(`Skipping tag update for contact ${contactId}`);
     }
   }
 }
