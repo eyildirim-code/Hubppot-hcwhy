@@ -79,7 +79,7 @@ Generate 3-5 relevant tags that would be useful for marketing, sales, or custome
     // Split by comma and clean up
     const tags = tagsText
       .split(',')
-      .map(tag => tag.trim().toLowerCase().replace(/[^a-z0-9-\s]/g, ''))
+      .map(tag => tag.trim().toLowerCase().replace(/[^a-z0-9-]/g, '').replace(/\s+/g, '-'))
       .filter(tag => tag.length > 0);
     
     return tags;

@@ -81,6 +81,16 @@ class HubSpotService {
    * @param {string} contactId - HubSpot contact ID
    * @param {Array<string>} tags - Array of tags to add
    * @returns {Promise<Object>} Updated contact
+   * 
+   * Note: This method uses a custom property 'ai_generated_tags' to store tags.
+   * You need to create this property in HubSpot first:
+   * 1. Go to Settings > Properties > Contact properties
+   * 2. Create a new property with internal name: 'ai_generated_tags'
+   * 3. Use type: Single-line text or Multiple checkboxes
+   * 
+   * Also note: The 'hs_lead_status' property used in getContactsFromPreviousDay
+   * is part of HubSpot Sales Hub. If you don't have Sales Hub, remove this property
+   * from the properties list or it may cause errors.
    */
   async updateContactTags(contactId, tags) {
     try {
