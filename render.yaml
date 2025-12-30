@@ -1,0 +1,20 @@
+services:
+  - type: web
+    name: hubspot-contact-tagging
+    env: node
+    region: oregon
+    plan: free
+    buildCommand: npm install
+    startCommand: npm start
+    healthCheckPath: /health
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 10000
+      - key: HUBSPOT_ACCESS_TOKEN
+        sync: false
+      - key: OPENAI_API_KEY
+        sync: false
+      - key: CRON_SCHEDULE
+        value: "0 0 * * *"

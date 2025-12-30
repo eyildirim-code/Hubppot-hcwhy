@@ -1,0 +1,21 @@
+{
+  "name": "hubspot-hcwhy",
+  "version": "1.0.0",
+  "description": "hubspottan api ile son önceki gün verisini çekip burdan belli değerleri alıp bir agent ile verdiğim bilgiler üzerinden belirli feature ozelliklerini degerlendirip buna bir tag aekleyip ilgili contact ın tag ını güncellyecek bir koda ihtiyacım var render da serve edilecek ve hubspot api cekip yukleyecek ayrıca openaı da veri taglemede api platform24",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "node index.js",
+    "test": "node test-validation.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@hubspot/api-client": "^13.4.0",
+    "dotenv": "^17.2.3",
+    "express": "^5.2.1",
+    "node-cron": "^4.2.1",
+    "openai": "^6.15.0"
+  }
+}
